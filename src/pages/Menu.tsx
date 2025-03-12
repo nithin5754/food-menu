@@ -1,38 +1,65 @@
-import { useState } from "react"
-import Banner from "../components/Banner"
-import Contact from "../components/Contact"
-import MenuCategoryDetails from "../components/MenuCategoryDetails"
-import SubBanner from "../components/SubBanner"
-import data from "../utility/menus"
+import { useEffect, useState } from "react";
+import Banner from "../components/Banner";
+import Contact from "../components/Contact";
+import MenuCategoryDetails from "../components/MenuCategoryDetails";
+import SubBanner from "../components/SubBanner";
 
-export interface IMenuCategoryDetailsProps {
-  id: number;
+import axios from "axios";
+import { BASE_URL } from "../utility/constants";
+
+export interface IMenuItemsProps {
+  id: string;
   name: string;
   description: string;
-  items: { id: number; name: string; description: string; price: number }[];
+  price: number;
 }
+
+export interface IMenuCategoryDetailsProps {
+  id: string;
+  name: string;
+  description: string;
+  items: IMenuItemsProps[];
+}
+
 const Menu = () => {
-  const [menus,_setmenus]=useState<IMenuCategoryDetailsProps[]>(data)
-  const [category,setCategory]=useState<number>(menus[0].id)
+  const [menus, setMenus] = useState<IMenuCategoryDetailsProps[] | []>([]);
 
-  const handleCategory =(categoryId:string)=>{
-console.log("categoryid",categoryId)
-  const isExisted=menus.some((menu:IMenuCategoryDetailsProps)=>menu.id===Number(`${categoryId}`))
-  console.log("isExisted",isExisted)
-  if(isExisted){
-    setCategory(Number(`${categoryId}`))
-  }
-  }
+  const [category, setCategory] = useState<string>("");
 
-  const selectedCategory :IMenuCategoryDetailsProps=menus.find((menu:IMenuCategoryDetailsProps)=>menu.id===category) as IMenuCategoryDetailsProps
+  const getAllMenus = async () => {
+    try {
+      const response = await axios.get(BASE_URL + "/get/all/menus");
+      setMenus(response?.data?.data);
+      setCategory(response.data?.data[0]?.id);
+    } catch (error) {
+      console.log("Error :", error);
+    }
+  };
+  useEffect(() => {
+    getAllMenus();
+  }, []);
+
+  const handleCategory = (categoryId: string) => {
+    const isExisted: boolean = menus.some(
+      (menu: IMenuCategoryDetailsProps) => menu.id === `${categoryId}`
+    );
+
+    if (isExisted) {
+      setCategory(`${categoryId}`);
+    }
+  };
+
+  const selectedCategory: IMenuCategoryDetailsProps = menus.find(
+    (menu: IMenuCategoryDetailsProps) => menu.id === category
+  ) as IMenuCategoryDetailsProps;
 
   return (
     <div className="bg-(--color-customDark)   mx-auto flex flex-col items-center">
-     <Banner/>
-     <SubBanner data={menus} handleCategory={handleCategory}  />
-     <MenuCategoryDetails data={selectedCategory}/>
-     <Contact/>
-   </div>
-  )
-}
-export default Menu
+      <Banner />
+      <SubBanner data={menus} handleCategory={handleCategory} />
+      <MenuCategoryDetails data={selectedCategory} />
+      <Contact />
+    </div>
+  );
+};
+export default Menu;

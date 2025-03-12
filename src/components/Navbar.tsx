@@ -34,7 +34,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-           href="/menu"
+           href="/"
            className="block py-2 px-3 text-white focus:text-blue-600 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 "
            >
           MENU
@@ -65,7 +65,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="/menu"
+                href="/"
                 className="block py-2 px-3 text-white focus:text-blue-600 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0  md:p-0 "
               >
           MENU

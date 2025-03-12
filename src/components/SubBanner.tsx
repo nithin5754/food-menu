@@ -1,8 +1,9 @@
 import { FC, ReactElement } from "react";
 import Button from "./Button";
+import { IMenuCategoryDetailsProps } from "../pages/Menu";
 
 interface IMenuCategoryProps {
-  data: any;
+  data: IMenuCategoryDetailsProps[];
   handleCategory: (categoryId: string) => void;
 }
 
@@ -10,6 +11,7 @@ const SubBanner: FC<IMenuCategoryProps> = ({
   data,
   handleCategory,
 }): ReactElement => {
+
   return (
     <div className="relative  w-full flex  h-32  overflow-hidden bg-gray-900">
       <img
@@ -24,7 +26,7 @@ const SubBanner: FC<IMenuCategoryProps> = ({
       />
 
       <div className="absolute inset-0  flex  flex-wrap gap-4  items-center justify-center p-4">
-        {data.map((menu: any) => (
+        {data.map((menu: IMenuCategoryDetailsProps) => (
           <Button
             key={menu.id}
             name={menu.name}

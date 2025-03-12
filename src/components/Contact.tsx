@@ -6,7 +6,7 @@ import { FaLinkedin } from "react-icons/fa6";
 const Contact = () => {
   return (
     <footer className="bg-black w-full   text-white py-6">
-      <div className="container mx-auto ">
+      <div className="container mx-auto mt-6 ">
         <div className="flex flex-col w-[90%] md:flex-row justify-center items-center gap-9 md:gap-12 mx-auto">
 
           <div className="border border-gray-600 p-6 rounded-xl text-center w-full md:w-80 h-[150px]">
