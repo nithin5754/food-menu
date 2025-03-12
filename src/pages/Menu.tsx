@@ -28,7 +28,7 @@ const Menu = () => {
 
   const getAllMenus = async () => {
     try {
-      const response = await axios.get(BASE_URL + "/get/all/menus");
+      const response = await axios.get(BASE_URL + "/api/get/all/menus");
       setMenus(response?.data?.data);
       setCategory(response.data?.data[0]?.id);
     } catch (error) {
